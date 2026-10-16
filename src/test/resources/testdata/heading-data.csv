@@ -1,0 +1,4 @@
+expectedText,shouldContain
+Selenium,true
+automates browsers,true
+Playwright,false

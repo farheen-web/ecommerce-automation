@@ -1,0 +1,23 @@
+
+# Java compiled output
+target/
+bin/
+
+# Generated test reports
+test-output/
+ExtentReport.html
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# IntelliJ files
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Local environment files and secrets
+.env
