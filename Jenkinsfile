@@ -16,16 +16,17 @@ pipeline {
         }
 
         
-stage('Diagnose Docker') {
+
+stage('Build and Test with Docker') {
     steps {
-        bat '''
-            where.exe docker
-            docker --version
-            docker compose version
-            docker info
-        '''
+        withEnv([
+            'DOCKER_CONFIG=C:\\Users\\farhe\\.docker'
+        ]) {
+            bat 'docker compose -f compose.yaml up --build --abort-on-container-exit --exit-code-from test-runner'
+        }
     }
 }
+
 		
     }
 
