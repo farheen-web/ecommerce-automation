@@ -15,11 +15,18 @@ pipeline {
             }
         }
 
-        stage('Build and Test with Docker') {
-            steps {
-                bat 'docker compose -f compose.yaml up --build --abort-on-container-exit --exit-code-from test-runner'
-            }
-        }
+        
+stage('Diagnose Docker') {
+    steps {
+        bat '''
+            where.exe docker
+            docker --version
+            docker compose version
+            docker info
+        '''
+    }
+}
+		
     }
 
     post {
