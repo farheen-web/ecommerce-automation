@@ -15,9 +15,9 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+        stage('Build and Test with Docker') {
             steps {
-                bat 'mvn clean test'
+                bat 'docker compose -f compose.yaml up --build --abort-on-container-exit --exit-code-from test-runner'
             }
         }
     }
@@ -25,7 +25,7 @@ pipeline {
     post {
         always {
             junit allowEmptyResults: true,
-                  testResults: '**/target/surefire-reports/*.xml'
+                  testResults: 'test-output/surefire-reports/*.xml'
 
             publishHTML(target: [
                 allowMissing: true,
@@ -40,6 +40,8 @@ pipeline {
                 artifacts: 'test-output/ExtentReport.html',
                 allowEmptyArchive: true
             )
+
+            bat 'docker compose -f compose.yaml down --remove-orphans'
         }
     }
 }
