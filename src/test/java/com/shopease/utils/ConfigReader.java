@@ -1,12 +1,13 @@
+
 package com.shopease.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigReader
-{
-	private static final Properties properties = new Properties();
+public class ConfigReader {
+
+    private static final Properties properties = new Properties();
 
     static {
         try (InputStream input = ConfigReader.class
@@ -15,29 +16,47 @@ public class ConfigReader
 
             if (input == null) {
                 throw new RuntimeException(
-                    "config.properties not found in classpath"
-                );
+                        "config.properties not found in classpath");
             }
 
             properties.load(input);
 
         } catch (IOException e) {
             throw new RuntimeException(
-                "Failed to load config.properties", e
-            );
+                    "Failed to load config.properties", e);
         }
     }
 
     public static String getProperty(String key) {
-        String value = properties.getProperty(key);
+
+        String envKey;
+
+        switch (key) {
+            case "browser":
+                envKey = "BROWSER";
+                break;
+            case "gridUrl":
+                envKey = "GRID_URL";
+                break;
+            default:
+                envKey = key.toUpperCase();
+        }
+
+        String value = System.getProperty(key);
+
+        if (value == null || value.isBlank()) {
+            value = System.getenv(envKey);
+        }
+
+        if (value == null || value.isBlank()) {
+            value = properties.getProperty(key);
+        }
 
         if (value == null || value.isBlank()) {
             throw new RuntimeException(
-                "Missing or empty configuration property: " + key
-            );
+                    "Missing or empty configuration property: " + key);
         }
 
         return value.trim();
     }
-
 }
