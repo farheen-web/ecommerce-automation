@@ -49,7 +49,9 @@ stage('Build and Test with Docker') {
                 allowEmptyArchive: true
             )
 
-            bat 'docker compose -f compose.yaml down --remove-orphans'
+            withEnv(['DOCKER_CONFIG=C:\\Users\\farhe\\.docker']) {
+                bat 'docker compose -f compose.yaml down --remove-orphans'
+            }
         }
     }
 }
