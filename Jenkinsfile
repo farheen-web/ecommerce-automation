@@ -45,7 +45,7 @@ stage('Build and Test with Docker') {
             ])
 
             archiveArtifacts(
-                artifacts: 'test-output/ExtentReport.html',
+                artifacts: 'test-output/**',
                 allowEmptyArchive: true
             )
 
