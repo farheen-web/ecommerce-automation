@@ -13,6 +13,12 @@ public class BaseTest
 	@BeforeMethod
 	public void setUp()
 	{
+		System.out.println("BROWSER env: " + System.getenv("BROWSER"));
+		System.out.println("GRID_URL env: " + System.getenv("GRID_URL"));
+		System.out.println("Resolved browser: "
+		        + com.shopease.utils.ConfigReader.getProperty("browser"));
+		System.out.println("Resolved Grid URL: "
+		        + com.shopease.utils.ConfigReader.getProperty("gridUrl"));
 		System.out.println("Setup thread: " + Thread.currentThread().getName());
 		
 		DriverManager.setDriver();
