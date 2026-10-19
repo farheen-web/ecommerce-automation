@@ -17,6 +17,7 @@ public class ExtentReportManager {
 
             ExtentSparkReporter sparkReporter =
                     new ExtentSparkReporter(reportPath);
+	    sparkReporter.config().setOfflineMode(true);
 
             sparkReporter.config().setDocumentTitle(
                     "SDET Automation Report");
